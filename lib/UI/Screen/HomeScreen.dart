@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:module_14_assigment/UI/ItemModel.dart';
+import 'package:module_14_assigment/Model/ItemModel.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
@@ -79,16 +79,37 @@ class _HomescreenState extends State<Homescreen> {
     foodList = jsonData.map((e) => ItemModel.formJson(e)).toList();
 
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       body: ListView.builder(
         itemCount: foodList.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(foodList[index].title),
-            subtitle: Column(
-              children: [
-                Text(foodList[index].description.toString()),
-                Text(foodList[index].calories.toString()),
-              ],
+          return Container(
+            decoration: BoxDecoration(color: Colors.white),
+            child: Container(
+              decoration: BoxDecoration(color: Colors.transparent),
+              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              child: ListTile(
+                title: Row(
+                  children: [
+                    CircleAvatar(child: Text('${index + 1}')),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(foodList[index].title),
+                          Text(foodList[index].description.toString()),
+                          Text(
+                            'calories: ${foodList[index].calories}',
+                            style: TextStyle(color: Colors.redAccent),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           );
         },

@@ -8,7 +8,7 @@ class ItemModel {
   final int id;
   final String title;
   final String description;
-  final String calories;
+  final int calories;
 
   ItemModel(
       {required this.id, required this.title, required this.description, required this.calories});
