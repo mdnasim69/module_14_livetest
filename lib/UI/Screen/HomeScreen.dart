@@ -79,17 +79,29 @@ class _HomescreenState extends State<Homescreen> {
     foodList = jsonData.map((e) => ItemModel.formJson(e)).toList();
 
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.grey.shade100,
+      appBar: appBar(),
       body: ListView.builder(
         itemCount: foodList.length,
         itemBuilder: (context, index) {
-          return Container(
-            decoration: BoxDecoration(color: Colors.white),
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal:16,vertical: 8),
             child: Container(
-              decoration: BoxDecoration(color: Colors.transparent),
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              child: ListTile(
-                title: Row(
+              height:125,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                      blurRadius: 8,
+                      color: Colors.black.withOpacity(0.05),
+                      offset: Offset(0, 3))
+                ],
+              ),
+              child: Container(
+                margin: EdgeInsets.all(8),
+                padding: EdgeInsets.all(8),
+                child: Row(
                   children: [
                     CircleAvatar(child: Text('${index + 1}')),
                     SizedBox(width: 8),
@@ -98,7 +110,7 @@ class _HomescreenState extends State<Homescreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(foodList[index].title),
+                          Text(foodList[index].title,style: TextStyle(fontSize:20,fontWeight: FontWeight.bold),),
                           Text(foodList[index].description.toString()),
                           Text(
                             'calories: ${foodList[index].calories}',
@@ -114,6 +126,61 @@ class _HomescreenState extends State<Homescreen> {
           );
         },
       ),
+    );
+  }
+  AppBar appBar(){
+    return AppBar(
+      title: Row(
+        children: [
+          Icon(
+            Icons.restaurant_menu,
+            color: Colors.white,
+            size: 28,
+          ),
+          SizedBox(width: 12),
+          Text(
+            'Food Recipes',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              letterSpacing: 0.5,
+            ),
+          ),
+        ],
+      ),
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      flexibleSpace: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.orange.shade600,
+              Colors.red.shade400,
+              Colors.orange.shade400,
+            ],
+          ),
+        ),
+      ),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.search, color: Colors.white),
+          onPressed: () {},
+        ),
+        IconButton(
+          icon: Icon(Icons.favorite_border, color: Colors.white),
+          onPressed: () {},
+        ),
+        Padding(
+          padding: EdgeInsets.only(right: 8.0),
+          child: CircleAvatar(
+            backgroundColor: Colors.white.withOpacity(0.3),
+            child: Icon(Icons.person, color: Colors.white),
+          ),
+        ),
+      ],
     );
   }
 }
